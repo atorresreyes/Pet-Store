@@ -19,7 +19,7 @@ public class Employee {
 	private Long employeeId;
 	private String employeeFirstName;
 	private String employeeLastName;
-	private Long employeePhone;
+	private String employeePhone;
 	private String employeeJobTitle;
 	
 	
