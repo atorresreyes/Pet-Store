@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import pet.store.controller.model.PetStoreData;
+import pet.store.controller.model.PetStoreData.PetStoreEmployee;
 import pet.store.service.PetStoreService;
 
 //this tells Spring that this class is a REST controller and to mapHTTP requests to class methods
@@ -38,5 +39,12 @@ public class PetStoreController {
 		petStoreData.setPetStoreId(petStoreId);
 		
 		return petStoreService.savePetStore(petStoreData);
+	}
+	
+	@PostMapping("/{petStoreId}/employee")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public PetStoreEmployee insertEmployee(@PathVariable Long petStoreId, @RequestBody PetStoreEmployee petStoreEmployee) {
+		log.info("Adding employee in store with ID={}", petStoreId);
+		return petStoreService.saveEmployee(petStoreId, petStoreEmployee);	
 	}
 }

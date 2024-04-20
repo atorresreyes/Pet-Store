@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pet.store.controller.model.PetStoreData;
+import pet.store.controller.model.PetStoreData.PetStoreEmployee;
+import pet.store.dao.EmployeeDao;
 import pet.store.dao.PetStoreDao;
+import pet.store.entity.Employee;
 import pet.store.entity.PetStore;
 
 @Service
@@ -16,6 +19,8 @@ public class PetStoreService {
 	@Autowired
 	private PetStoreDao petStoreDao;
 	
+	@Autowired
+	private EmployeeDao employeeDao;
 
 	
 	@Transactional(readOnly = false)
@@ -29,7 +34,6 @@ public class PetStoreService {
 	}
 
 	private void copyPetStoreFields(PetStore petStore, PetStoreData petStoreData) {
-		petStore.setPetStoreId(petStoreData.getPetStoreId());
 		petStore.setPetStoreName(petStoreData.getPetStoreName());
 		petStore.setPetStoreAddress(petStoreData.getPetStoreAddress());
 		petStore.setPetStoreCity(petStoreData.getPetStoreCity());
@@ -52,6 +56,50 @@ public class PetStoreService {
 
 	private PetStore findPetStoreById(Long petStoreId) {
 		return petStoreDao.findById(petStoreId).orElseThrow(() -> new NoSuchElementException("Pet store with ID=" + petStoreId + " does not exist."));
+	}
+	
+	@Transactional(readOnly = false)
+	public PetStoreEmployee saveEmployee(Long petStoreId, PetStoreEmployee petStoreEmployee) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		Long employeeId = petStoreEmployee.getEmployeeId();
+		Employee employee = findOrCreateEmployee(petStoreId, employeeId);
+		
+		copyEmployeeFields(employee, petStoreEmployee);
+		
+		// set petStore in employee
+		employee.setPetStore(petStore);
+		
+		//add employee to pet store list of employees
+		petStore.getEmployees().add(employee);
+		
+		Employee dbEmployee = employeeDao.save(employee);
+
+		
+		return new PetStoreEmployee(dbEmployee);
+	}
+	
+	private void copyEmployeeFields(Employee employee, PetStoreEmployee petStoreEmployee) {
+		employee.setEmployeeFirstName(petStoreEmployee.getEmployeeFirstName());
+		employee.setEmployeeLastName(petStoreEmployee.getEmployeeLastName());
+		employee.setEmployeePhone(petStoreEmployee.getEmployeePhone());
+		employee.setEmployeePhone(petStoreEmployee.getEmployeePhone());
+		employee.setEmployeeJobTitle(petStoreEmployee.getEmployeeJobTitle());	
+	}
+
+	private Employee findOrCreateEmployee(Long petStoreId, Long employeeId) {
+		Employee employee;
+		//b. If the employee ID is null, it should return a new Employee object.
+		if(Objects.isNull(employeeId)) {
+			employee = new Employee();
+		} else {
+			employee = findEmployeeById(petStoreId, employeeId);
+		}
+		
+		return employee;
+	}
+
+	private Employee findEmployeeById(Long petStoreId, Long employeeId) {
+		return employeeDao.findById(employeeId).orElseThrow(() -> new NoSuchElementException("Employee with ID=" + employeeId + " does not exist."));
 	}
 
 }
