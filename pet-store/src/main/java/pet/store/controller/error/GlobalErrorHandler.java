@@ -27,4 +27,17 @@ public class GlobalErrorHandler {
 		
 		return exceptionMap;
 	}
+	
+	@ExceptionHandler(IllegalStateException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public Map<String, String> handleIllegalStateException(IllegalStateException ex) {
+		log.info("Input does not match.");
+		
+		Map<String, String> exceptionMap = new HashMap<String, String>();
+		
+		exceptionMap.put("message", ex.toString());
+		
+		return exceptionMap;
+	}
+	
 }

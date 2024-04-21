@@ -1,0 +1,15 @@
+{
+  "employeeFirstName": "Samantha",
+  "employeeLastName": "Burns",
+  "employeeEmail": "samantha_burns@ngo.gov",
+  "employeePhone": "303-322-4995",
+  "employeeJobTitle": "Manager"
+}
+
+{
+  "employeeFirstName": "Godot",
+  "employeeLastName": "Barclay",
+  "employeeEmail": "attendantgodot@hotmail.com",
+  "employeePhone": "599-422-3303",
+  "employeeJobTitle": "Attendant"
+}

@@ -1,0 +1,26 @@
+{
+  "petStoreName": "Really Cool Pet Store",
+  "petStoreAddress": "8395 North Bladford Lane",
+  "petStoreCity": "Gangrene",
+  "petStoreState": "Georgia",
+  "petStoreZip" : "12345",
+  "petStorePhone": "303-322-4995"
+}
+
+{
+  "petStoreName": "Super Groovy Pet Store",
+  "petStoreAddress": "8395 North Bladford Lane",
+  "petStoreCity": "Gangrene",
+  "petStoreState": "Georgia",
+  "petStoreZip" : "12345",
+  "petStorePhone": "303-322-4995"
+}
+
+{
+  "petStoreName": "PetSmart",
+  "petStoreAddress": "130 N Milwaukee St",
+  "petStoreCity": "Boise",
+  "petStoreState": "Idaho",
+  "petStoreZip" : "83704",
+  "petStorePhone": "208-377-9748"
+}
